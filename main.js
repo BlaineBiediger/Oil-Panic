@@ -1,4 +1,4 @@
-///Graphics : O
+///Graphics
 var bucket = new Image();
 bucket.src = "Bucket0.png";
 
@@ -50,7 +50,7 @@ var position = 16
 var score = 0
 var misses = 0
 
-///Functions!
+///Functions
 function positionToRowCol(position) {
 	var row = Math.floor(position / 3);
 	var col = Math.floor(position % 3) + 1;
@@ -123,7 +123,7 @@ setInterval(function (){
 	}
 	if (a == 3){
 		render.drawImage(bucketTiltLeft, bucketPosX, bucketPosY-10, 140, 140);
-		score = score + (100 * bucketDrops * (bucketDrops / 2));
+		score = score + (100 * bucketDrops * ((bucketDrops * 3) / 2));
 		bucketDrops = 0;
 	}
 	if (d == 3){
@@ -135,12 +135,12 @@ setInterval(function (){
 }, 17);
 
 setInterval(function (){
-	render.clearRect(141,0, canvas.width, canvas.height - 130);
+	render.clearRect(141, 0, canvas.width, canvas.height - 130);
 	drawScore();
-	if (oilCoor.row < 470){
+	if (oilCoor.row < 440){
 		render.drawImage(oil, oilCoor.col * 155, oilCoor.row, 80, 110);
 	}
-	oilCoor.row = oilCoor.row + 117;
+	oilCoor.row = oilCoor.row + 110;
 	if (oilCoor.row > 500) {
 			if (bucketDrops > 2){
 				misses = misses + 1;
