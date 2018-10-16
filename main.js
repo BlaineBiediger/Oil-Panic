@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-///Graphics
-=======
+
 ///Graphics : O
 //The bucket
 //0 drops of oil
->>>>>>> f0986cfa14ca91c957933a89043717e61cf28afc
 var bucket = new Image();
 bucket.src = "Bucket0.png";
 //1 drop of oil
@@ -136,11 +133,7 @@ setInterval(function (){
 	}
 	if (a == 3){
 		render.drawImage(bucketTiltLeft, bucketPosX, bucketPosY-10, 140, 140);
-<<<<<<< HEAD
-		score = score + (100 * bucketDrops * ((bucketDrops * 3) / 2));
-=======
-		score += (100 * bucketDrops * (bucketDrops / 2));
->>>>>>> f0986cfa14ca91c957933a89043717e61cf28afc
+		score += (100 * bucketDrops * ((bucketDrops * 3) / 2));
 		bucketDrops = 0;
 	}
 	if (d == 3){
