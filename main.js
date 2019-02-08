@@ -1,5 +1,5 @@
 
-///Graphics : O
+///Graphics
 //The bucket
 //0 drops of oil
 var bucket = new Image();
@@ -13,6 +13,9 @@ bucket2.src = "Bucket2.png";
 //3 drops of oil
 var bucket3 = new Image();
 bucket3.src = "Bucket3.png";
+
+var bucketL = new Image();
+bucketL.src = "BucketL.png";
 
 //Oil drops
 var oil = new Image();
@@ -70,26 +73,22 @@ function positionToRowCol(position) {
 
 var oilCoor = positionToRowCol(initialPos[Math.floor(Math.random()*initialPos.length)]);
 
-function drawScore() {
-    canvas.font = "16px Arial";
-    canvas.fillStyle = "#0095DD";
-    canvas.fillText = ("Score: "+score, 8, 20);
-}
-
 document.addEventListener("keydown", function(event) {
-	if (event.code == "KeyA" && a < 3) {
-		if (bucketPosX != 20 && d != 3) {
-			bucketPosX = bucketPosX - 130;
+	if (d != 4){
+		if (event.code == "KeyA" && a < 3) {
+			if (bucketPosX != 20 && d != 3) {
+				bucketPosX = bucketPosX - 130;
+			}
+			a++;
+			d--;
 		}
-		a++;
-		d--;
-	}
-	if (event.code == "KeyD" && d < 3) {
-		if (bucketPosX != 540 && a != 3) {
-		bucketPosX = bucketPosX + 130
+		if (event.code == "KeyD" && d < 3) {
+			if (bucketPosX != 540 && a != 3) {
+			bucketPosX = bucketPosX + 130
+			}
+			a--;
+			d++;
 		}
-		a--;
-		d++;
 	}
 });
 
@@ -99,9 +98,13 @@ setInterval(function (){
 	//To redraw the bucket every frame
 	render.clearRect(0, bucketPosY - 10, canvas.width, canvas.height);
 	render.clearRect(0,0, 141, 19.5);
+	render.webkitImageSmoothingEnabled = false;
+	render.mozImageSmoothingEnabled = false;
+	render.imageSmoothingEnabled = false;
 	
 	//Display the score on the screen
 	document.getElementById("score").innerHTML = "Score: " + score;
+	//Display miss counter and GAME OVER
 	if (misses == 0){
 		render.drawImage(miss0, 0, 10, 141, 19.5);
 	}
@@ -113,7 +116,18 @@ setInterval(function (){
 	}
 	else {
 		render.drawImage(miss3, 0, 10, 141, 19.5);
+		oilCoor = 0;
+		d = 4;
+		if (bucketPosY > 200 && bucketDrops != 4){
+			bucketPosY -= 10;
+		}
+		else {
+			bucketDrops = 4;
+			bucketPosY +=20;
+		}
+		document.getElementById("GM").innerHTML = "GAME OVER (Please Reload)"
 	}
+	//Display bucket
 	if (a != 3 && d != 3){
 		if (bucketDrops == 0){
 			render.drawImage(bucket, bucketPosX, bucketPosY, 140, 119);
@@ -128,7 +142,7 @@ setInterval(function (){
 			render.drawImage(bucket3, bucketPosX, bucketPosY, 140, 119);
 		}
 		else {
-			bucketDrops = 0;
+			render.drawImage(bucketL, bucketPosX, bucketPosY, 140, 119);
 		}
 	}
 	if (a == 3){
@@ -141,15 +155,15 @@ setInterval(function (){
 		score += (100 * bucketDrops * ((bucketDrops * 3) / 2));
 		bucketDrops = 0;
 	}
-
 }, 17);
 
+//Oil loop
 setInterval(function (){
 	render.clearRect(141, 0, canvas.width, canvas.height - 130);
-	drawScore();
 	if (oilCoor.row < 440){
 		render.drawImage(oil, oilCoor.col * 155, oilCoor.row, 80, 110);
 	}
+
 	oilCoor.row = oilCoor.row + 110;
 	if (oilCoor.row > 500) {
 			if (bucketDrops > 2){
